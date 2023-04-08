@@ -1,2 +1,2 @@
-# ESP8266-RGB-Strip-Control
-The repo for microprocessors course project that controls RGB strips using the internet on a web app.
+# Embedded systems mini projects
+This repo contains all my smaller Embedded systems projects.
