@@ -1,6 +1,6 @@
 #How to use:
 This project is a wifi controlled car based on ESP8266 using micropython. It can be controlled by any device with a web browser. 
-When the user connects with The ESP they can enter any ip address in the browser to open the car's web page and control the car.
+When the user connects with The ESP they can enter anything in the browser to open the car's web page and control the car.
 multiple cars can be made and used together for racing or group games.
 
 #Code explanation:

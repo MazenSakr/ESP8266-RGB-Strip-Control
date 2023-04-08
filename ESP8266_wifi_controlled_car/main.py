@@ -37,7 +37,7 @@ html = """<!DOCTYPE html>
 </html>"""
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('', 80))
+s.bind(('', 53))
 s.listen(5)
 
 # Set up motor driver
