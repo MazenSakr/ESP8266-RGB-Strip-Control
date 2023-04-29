@@ -1,0 +1,4 @@
+This is a project for microprocessors course using an esp8266.
+This project uses micropython along with neopixel library to control a RGB strip using ESP8266. The ESP8266 is set up as a web server that communicates with a flutter mobile app that contains a color picker and multiple color modes. The user can select a color from the color picker and send it to the ESP8266. The ESP8266 then sets the color of the RGB strip to the selected color. The code uses the Python socket library to listen for incoming connections and the network library to set up the access point. The code also uses the neopixel library to control the RGB strip. Overall, this code serves as a simple example of using the ESP8266 as a web server to remotely control a device.
+
+circuit : <https://www.tinkercad.com/things/lK5o1VCmd7B?sharecode=2cYSk8_vopL9E0Qo9Lbk5EYjF4_x0aS55EPVOznrBUE>
