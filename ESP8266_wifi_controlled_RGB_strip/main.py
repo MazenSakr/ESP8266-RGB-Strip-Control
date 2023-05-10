@@ -79,7 +79,7 @@ class RGBStripControl():
                 self.values = request[(request.index(
                     'POST /')+6):request.index(' HTTP')].split('+')
                 # print(self.values)
-                # print("a7zaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaan")
+                # print("")
                 # if 'GET /rgb?' in request:
                 #    # Parse RGB values from request
                 #    start_index = request.index('GET /rgb?') + 8
@@ -92,7 +92,6 @@ class RGBStripControl():
             except:
                 pass
                 self.mode = int(self.values[0])
-                # print("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
                 self.color.red = int(self.values[1])
                 self.color.green = int(self.values[2])
                 self.color.blue = int(self.values[3])
