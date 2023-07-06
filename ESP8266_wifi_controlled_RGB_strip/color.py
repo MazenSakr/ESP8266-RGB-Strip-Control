@@ -3,11 +3,16 @@ class Color():
         self.red = red
         self.green = green
         self.blue = blue
+        self.Saturation = 0
+        self.Hue = 0
+        self.Value = 0
+        self.convHSV()
     
     def convHSV(self):
         self.Value = max(self.red, self.green, self.blue)
         min_value = min(self.red, self.green, self.blue)
-        Saturation = (self.Value - min_value) / self.Value
+        if self.Value != 0:
+            Saturation = (self.Value - min_value) / self.Value
         Hue = 0 if self.Value == self.red == self.green == self.blue  else \
             60 * (self.green - self.blue) / (self.Value - min_value) if self.Value == self.red != self.green != self.blue else \
             60 * (self.blue - self.red) / (self.Value - min_value) + 120 if self.Value == self.green != self.red != self.blue else \
