@@ -1,80 +1,35 @@
 class Color():
     def __init__(self, red, green, blue):
-        self.red = float(red)
-        self.green = float(green)
-        self.blue = float(blue)
-        self.Saturation = 0.0
-        self.Hue = 0.0
-        self.Value = 0.0
+        self.red = red
+        self.green = green
+        self.blue = blue
+        self.Saturation = 0
+        self.Hue = 0
+        self.Value = 0
         self.convHSV()
     
     def convHSV(self):
-        # Normalize RGB values to [0, 1]
-        nred, ngreen, nblue = self.red / 255.0, self.green / 255.0, self.blue / 255.0
-        
-        # Find the maximum and minimum RGB values
-        cmax = max(nred, ngreen, nblue)
-        cmin = min(nred, ngreen, nblue)
-        diff = cmax - cmin
-        
-        # Calculate Hue
-        if cmax == cmin:
-            self.Hue = 0.0
-        elif cmax == nred:
-            self.Hue = (60.0 * ((ngreen - nblue) / diff) + 360.0) % 360.0
-        elif cmax == ngreen:
-            self.Hue = (60 * ((nblue - nred) / diff) + 120) % 360
-        else:
-            self.Hue = (60 * ((nred - ngreen) / diff) + 240) % 360
-        
-        # Calculate Saturation
-        if cmax == 0:
-            self.Saturation = 0
-        else:
-            self.Saturation = (diff / cmax) * 100
-        
-        # Calculate Value
-        self.Value = cmax * 100
-
+        self.Value = max(self.red, self.green, self.blue)
+        min_value = min(self.red, self.green, self.blue)
+        if self.Value != 0:
+            Saturation = (self.Value - min_value) / self.Value
+        Hue = 0 if self.Value == self.red == self.green == self.blue  else \
+            60 * (self.green - self.blue) / (self.Value - min_value) if self.Value == self.red != self.green != self.blue else \
+            60 * (self.blue - self.red) / (self.Value - min_value) + 120 if self.Value == self.green != self.red != self.blue else \
+            120 if self.green == 255 and self.red == 0 and self.blue == 0 else \
+            60 * (self.red - self.green) / (self.Value - min_value) + 240 if self.Value == self.blue != self.red != self.green else \
+            240 if  self.blue == 255 and self.red == 0 and self.green == 0  else \
+            60 * ((self.green - self.red) / (self.Value - min_value) + 2) if self.Value != self.red != self.green != self.blue else 0
 
     def convRGB(self):
-        # Normalize HSV values
-        nhue = self.Hue % 360.0
-        nsaturation = self.Saturation / 100.0
-        nvalue = self.Value / 100.0
-        
-        # Calculate chroma
-        chroma = nvalue * nsaturation
-        
-        # Calculate intermediate values
-        hprime = nhue / 60.0
-        x = chroma * (1 - abs((hprime % 2) - 1))
-        m = nvalue - chroma
-        
-        # Calculate RGB values
-        if 0 <= hprime < 1:
-            nred, ngreen, nblue = chroma, x, 0
-        elif 1 <= hprime < 2:
-            nred, ngreen, nblue = x, chroma, 0
-        elif 2 <= hprime < 3:
-            nred, ngreen, nblue = 0, chroma, x
-        elif 3 <= hprime < 4:
-            nred, ngreen, nblue = 0, x, chroma
-        elif 4 <= hprime < 5:
-            nred, ngreen, nblue = x, 0, chroma
-        else:
-            nred, ngreen, nblue = chroma, 0, x
-        
-        # Adjust RGB values by adding m
-        self.red = int((nred + m) * 255.0)
-        self.green = int((ngreen + m) * 255.0)
-        self.blue = int((nblue + m) * 255.0)
-
-    def get_RGBcolor(self):
-        return (self.red, self.green, self.blue)
-    
-    def get_HSVcolor(self):
-        return (self.Hue, self.Saturation, self.Value)
-
-
-
+        self.Value = self.Value / 255
+        Chroma = self.Value * self.Saturation
+        X = Chroma * (1 - abs((self.Hue / 60) % 2 - 1))
+        m = self.Value - Chroma
+        (self.red, self.green, self.blue) = (Chroma, X, 0) if 0 <= self.Hue < 60 else \
+            (X, Chroma, 0) if 60 <= self.Hue < 120 else \
+            (0, Chroma, X) if 120 <= self.Hue < 180 else \
+            (0, X, Chroma) if 180 <= self.Hue < 240 else \
+            (X, 0, Chroma) if 240 <= self.Hue < 300 else \
+            (Chroma, 0, X)
+        (self.red, self.green, self.blue) = ((self.red + m) * 255, (self.green + m) * 255, (self.blue + m) * 255)
